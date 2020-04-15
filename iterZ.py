@@ -11,6 +11,8 @@ class iterZ:
         return self.obj.__repr__()
     def __getitem__(self, x):
         return self.obj.__getitem__[x]
+    def __len__(self):
+        return self.obj.__len__()
     def map(self,func):
         return iterZ(map(func,self.obj))
     def filter(self,func):
