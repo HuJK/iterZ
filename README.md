@@ -1,0 +1,2 @@
+# iterZ
+JavaScript flavor iterable
