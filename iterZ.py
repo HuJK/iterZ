@@ -39,5 +39,7 @@ class iterZ:
         return functools.reduce(func,iter_obj, next(iter_obj))
     def list(self):
         return iterZ(list(self.obj))
+    def sorted(self, *args, **kwargs):
+        return iterZ(sorted(self.obj, *args, **kwargs))
     def join(self,Jstr):
         return Jstr.join(self)
