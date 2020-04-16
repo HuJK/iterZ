@@ -2,6 +2,8 @@ import functools
 type_temp = {}
 
 def iterZ(self_obj):
+    if type(self_obj) in type_temp:
+        return type_temp[type(self_obj)](self_obj)
     class iterC:
         def __init__(self,self_obj):
             self.iterZ_original_obj = self_obj
@@ -24,8 +26,6 @@ def iterZ(self_obj):
             ret = func(*args, **kwargs)
             return iterC(ret) if type(ret) == type(args[0]) else ret
         return _decorator_iterZ
-    if type(self_obj) in type_temp:
-        return type_temp[type(self_obj)](self_obj)
     for d in dir(type(self_obj)):
         if d not in ["__class__","__init__","__new__","__setattr__","__getattribute__"] :
             attrset = getattr(type(self_obj), d)
@@ -33,5 +33,6 @@ def iterZ(self_obj):
                 setattr(iterC,d, decorator_iterZ(attrset))
             else:
                 setattr(iterC,d, attrset)
+    iterC.__name__ = "iterZ_" + type(self_obj).__name__
     type_temp[type(self_obj)] = iterC
     return iterC(self_obj)
